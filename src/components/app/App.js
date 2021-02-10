@@ -1,14 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { fetch } from './fetcher/fetcher';
+import React from 'react';
+import XmlViewer from '../xml-viewer/XmlViewer';
 
 class App extends React.Component {
-
-
-  componentDidMount(){
-    fetch()
-  }
-
 
   render() {
 
@@ -26,7 +21,13 @@ class App extends React.Component {
         >
           Learn React
         </a>
+        <p>
+          {this.response}
+        </p>
       </header>
+      <div>
+        <XmlViewer></XmlViewer>
+      </div>
     </div>
   }
 }
