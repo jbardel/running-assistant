@@ -4,7 +4,7 @@ import './index.css';
 import Dashboard from './components/dashboard/Dashboard';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import './dashboard.css';
 
 ReactDOM.render(
   <React.StrictMode>
