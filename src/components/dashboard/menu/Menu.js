@@ -1,4 +1,7 @@
 import React from 'react'
+import {
+    Link
+} from "react-router-dom";
 
 class Menu extends React.Component {
 
@@ -22,11 +25,8 @@ class Menu extends React.Component {
                                 this.props.list?.map((file, index) => {
 
                                     let active = this.state.selectedIndex === index ? "nav-link active" : "nav-link"
-
                                     return (<li className="nav-item" key={index}>
-                                        <a className={active} href="#" onClick={(event => this.selectItem(index, file, event))} >
-                                            {file}
-                                        </a>
+                                        <Link className={active} to={"/detail/" + file} onClick={(_ => this.selectItem(index))}>{file}</Link>
                                     </li>)
                                 })
                             }
@@ -37,14 +37,10 @@ class Menu extends React.Component {
         )
     }
 
-    selectItem(id, file, event) {
-        event.preventDefault()
-
+    selectItem(id) {
         this.setState({
             selectedIndex: id,
         })
-
-        this.props.onFileChange(file)
     }
 
 }

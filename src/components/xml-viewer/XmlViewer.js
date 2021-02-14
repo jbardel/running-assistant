@@ -1,6 +1,5 @@
 import React from 'react';
-import fetch from '../../fetcher/fetcher';
-import bootstrap from 'bootstrap';
+import { fetch } from '../../fetcher/fetcher';
 import './XmlViewer.css';
 
 class XmlViewer extends React.Component {

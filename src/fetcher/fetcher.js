@@ -10,7 +10,7 @@ export function fetchList() {
 }
 
 export function fetch(filename) {
-    return window.fetch(filename)
+    return window.fetch("/" + filename)
         .then(r => r.text())
         .then(r => domParser.parseFromString(r, "text/xml"))
         .then(r => {
