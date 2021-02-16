@@ -15,12 +15,10 @@ class TrackpointViewer extends React.Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount")
         this.fetchTrackpoints()
     }
 
     componentDidUpdate(prevProps) {
-        console.log("componentDidUpdate")
         if (prevProps.match.params.filename !== this.props.match.params.filename) {
             this.fetchTrackpoints()
         }
@@ -28,7 +26,6 @@ class TrackpointViewer extends React.Component {
 
     fetchTrackpoints() {
         let filename = this.props.match.params.filename
-        console.log("filename", filename)
         fetch(filename).then(elem => {
             this.setState({
                 trackpoints: elem,
@@ -38,14 +35,17 @@ class TrackpointViewer extends React.Component {
     }
 
     render() {
-        console.log("TrackpointViewer.render")
         return (
-            <div>
+            <div className="row">
+                <h2>{this.state.filename}</h2>
                 {
                     this.state.trackpoints != null &&
-                    <ElevationGraph filename={this.state.filename} trackpoints={this.state.trackpoints} />
+                    <ElevationGraph trackpoints={this.state.trackpoints} />
                 }
-                <RunMap />
+                {
+                    this.state.trackpoints != null &&
+                    <RunMap trackpoints={this.state.trackpoints}/>
+                }
             </div>
         )
     }

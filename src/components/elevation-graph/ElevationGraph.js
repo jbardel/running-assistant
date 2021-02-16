@@ -21,7 +21,6 @@ class ElevationGraph extends React.Component {
     render() {
         return (
             <div>
-                <h2>{this.props.filename}</h2>
                 <canvas ref={this.chartRef}></canvas>
             </div>
         )
