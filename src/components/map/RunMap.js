@@ -5,21 +5,18 @@ import { Map, View } from 'ol';
 import { Stroke, Style } from 'ol/style';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import { transform } from 'ol/proj';
 
 
 class RunMap extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
 
         var styles = {
-            'MultiLineString': new Style({
+            'Polygon': new Style({
                 stroke: new Stroke({
-                    color: 'green',
-                    width: 1,
+                    color: 'black',
+                    width: 4,
                 }),
             }),
         };
@@ -28,26 +25,19 @@ class RunMap extends React.Component {
             return styles[feature.getGeometry().getType()];
         };
 
+        let coord = this.props.trackpoints.map(e => this.convertCoordinate(e.long, e.lat))
+        //var newCoord = transform([lon, lat], 'EPSG:4326', 'EPSG:3857');
 
         let geoJson = {
             'type': 'Feature',
             'geometry': {
-                'type': 'MultiLineString',
+                'type': 'Polygon',
                 'coordinates': [
                     [
-                        [-1e6, -7.5e5],
-                        [-1e6, 7.5e5]],
-                    [
-                        [1e6, -7.5e5],
-                        [1e6, 7.5e5]],
-                    [
-                        [-7.5e5, -1e6],
-                        [7.5e5, -1e6]],
-                    [
-                        [-7.5e5, 1e6],
-                        [7.5e5, 1e6]]],
-            },
-
+                        this.props.trackpoints.map(e => this.convertCoordinate(e.long, e.lat))
+                    ]
+                ]
+            }
         }
 
         let vectorSource = new VectorSource({
@@ -86,6 +76,11 @@ class RunMap extends React.Component {
             <div id="map" style={mapStyle}></div>
         )
     }
+
+    convertCoordinate(long, lat){
+        return transform([parseFloat(long), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
+    }
+
 }
 
 export default RunMap
